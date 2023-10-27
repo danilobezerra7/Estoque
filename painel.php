@@ -64,10 +64,9 @@ if(isset($_POST['submit']))
      </form>
 
 
-     
-
      <p>
-        <a href="logout.php">Sair</a>
+        <a href="logout.php" class="btn btn-danger me-5">Sair</a></br>
+        <a href="consulta.php">Consultar Itens</a>
      </p>
 </body>
 </html>

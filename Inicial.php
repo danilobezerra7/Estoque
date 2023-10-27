@@ -1,37 +1,38 @@
 <?php 
-include("conexao.php");
+ include("conexao.php");
 
 if(isset($_POST['email']) || isset($_POST['senha'])){
-  if(strlen($_POST['email']) == 0){
-      echo "Por favor digitar E-mail";
-  }else if(strlen($_POST['senha']) == 0){
-      echo"Preencha sua Senha";
-  }else{
-      $email = $mysqli->real_escape_string($_POST['email']);
-      $senha = $mysqli->real_escape_string($_POST['senha']);
+    if(strlen($_POST['email']) == 0){
+        echo "Por favor digitar E-mail";
+    }else if(strlen($_POST['senha']) == 0){
+        echo"Preencha sua Senha";
+    }else{
+        $email = $mysqli->real_escape_string($_POST['email']);
+        $senha = $mysqli->real_escape_string($_POST['senha']);
 
-      $sql_code ="SELECT * FROM usuario where email ='$email' AND senha ='$senha'";
-      $sql_query = $mysqli->query($sql_code) or die("Falha na exercução:" . $mysqli->error);
+        $sql_code ="SELECT * FROM usuario where email ='$email' AND senha ='$senha'";
+        $sql_query = $mysqli->query($sql_code) or die("Falha na exercução:" . $mysqli->error);
 
-      $quatidade = $sql_query->num_rows;
+        $quatidade = $sql_query->num_rows;
 
-      if($quatidade==1){
-          $usuario = $sql_query->fetch_assoc();
-          if (!isset($_SESSION)){
-              session_start();
-          }
+        if($quatidade==1){
+            $usuario = $sql_query->fetch_assoc();
+            if (!isset($_SESSION)){
+                session_start();
+            }
 
-          $_SESSION['id'] = $usuario['id'];
-          $_SESSION['nome'] = $usuario['nome'];
+            $_SESSION['id'] = $usuario['id'];
+            $_SESSION['nome'] = $usuario['nome'];
 
-          header("Location: painel.php");
+            header("Location: painel.php");
 
-      }else{
-          echo "</br>Falha ao logar! </br>E-mail ou Senha incorretos";
-      }
-  }
-}
-?>
+        }else{
+            echo "Falha ao logar! E-mail ou Senha incorreto";
+        }
+    }
+ }
+ ?>
+
 
 <!doctype html>
 <html lang="pt-br" data-bs-theme="auto">
@@ -50,7 +51,7 @@ if(isset($_POST['email']) || isset($_POST['senha'])){
 
 
     <link rel="stylesheet" href="css/bootstrap-icons.css">
-    <link rel="icon" href="img/brand/marca-x.png">    
+    <link rel="icon" href="img/negoc.jpg">    
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
     <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -195,33 +196,29 @@ if(isset($_POST['email']) || isset($_POST['senha'])){
 
     
 <main class="form-signin w-100 m-auto">
-  
   <form action="" method="POST">
-    <img class="mb-4" src="img/brand/marca-x p.png" alt="" width="72" height="57">
+    <img class="mb-4" src="img/brand/bootstrap-logo.svg" alt="" width="72" height="57">
     
 
     <h1 class="h3 mb-3 fw-normal">Faça login</h1>
 
     <div class="form-floating mb-3">
+      <label for="floatingInput"></label>
       <input type="text" name="email" class="form-control" id="floatingInput" placeholder="Digite seu email">
-      <label for="floatingInput">E-mail</label>
     </div>
 
-    <div class="form-floating mb-3">
-      <input type="password" name="senha" class="form-control" id="floatingPassword" placeholder="Digite sua senha">
+    <div class="form-floating">
       <label for="floatingPassword">Senha</label>
+      <input type="password" name="senha" class="form-control" id="floatingPassword" placeholder="Digite sua senha">
     </div>
 
     <div class="form-check text-start my-3">
       <input class="form-check-input" type="checkbox" value="remember-me" id="flexCheckDefault">
       <label class="form-check-label" for="flexCheckDefault">
-        Lembre me
+        Remember me
       </label>
     </div>
-
-    <button class="btn btn-primary w-100 py-2" type="submit" ><i class="bi bi-send-check"></i> Entrar
-    </button>
-
+    <button class="btn btn-primary w-100 py-2" type="submit" ><i class="bi bi-send-check"></i> Entrar</button>
     <p class="mt-5 mb-3 text-body-secondary">&copy; 2017–2023</p>
   </form>
 </main>
